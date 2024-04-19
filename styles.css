@@ -1,0 +1,22 @@
+body {
+    background-color: white;
+    margin: 0;
+    padding: 0;
+
+}
+
+#board {
+    width: 100vw;
+    height: 100vh;
+    background-color: darkcyan;
+    position: relative;
+}
+
+#player {
+    background-color: green;
+    width: 10vw;
+    height: 10vh;
+    position: absolute;
+    bottom: 0vh;
+    left: 0vw;
+}
