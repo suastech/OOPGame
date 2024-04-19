@@ -27,24 +27,31 @@ class Player {
         this.playerElm.style.bottom = this.y + "vh"
     }
     jump() {
-        let jumpAltitude = 5;
-        let jumpDuration = 20;
+        /*
+        The method jump increments to the property this.y until counter reaches 10.
+        When counter === ten, then I change the value of goingDown to true. 
+        Once the value of goingDown is set to false, it will stop incrementing, and will execute the third "if" block,
+        substracting the value of counter. When counter reaches -1, the clearInterval is activated. 
+        */
+    
+        let jumpAltitude = 3;
+        let jumpDuration = 15;
         let counter = 0;
-        let down = false;
+        let goingDown = false;
         let intervalId = setInterval( () => {
     
-        if (counter < 10 && down === false) {
+        if (counter < 10 && goingDown === false) {
         this.y = this.y + jumpAltitude;
         this.playerElm.style.bottom = this.y + 'vh';
         counter ++
         }
     
         if (counter === 10) {
-          down = true
+          goingDown = true
           counter--
         }
     
-        if (counter >= 0 && down === true) {
+        if (counter >= 0 && goingDown === true) {
           this.y = this.y - jumpAltitude;
           this.playerElm.style.bottom = this.y + 'vh';
           counter --
@@ -58,8 +65,19 @@ class Player {
     }
 }
 
+
+/* class Obstacle {
+    constructor() {
+    this.x = 40;
+    this.y = 100;
+    this.width = 5;
+    this.height = 20;
+    }
+
+
+} */
+
 const player = new Player();
-player.moveUp();
 
 document.addEventListener('keydown', (e) => {
     if (e.code === 'ArrowUp') {
