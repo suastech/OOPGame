@@ -1,20 +1,34 @@
+html {
+    font-size: 16px
+  }
+
 body {
     background-color: white;
     margin: 0;
     padding: 0;
-
+    display: flex;
+    height: 100vh;
 }
 
 #board {
-    width: 100vw;
-    height: 100vh;
+    width: 1200px;
+    height: 500px;
     background-color: darkcyan;
     position: relative;
+    margin: auto auto;
 }
 
 #player {
-    background-color: green;   
     position: absolute;
-    bottom: 0vh;
-    left: 0vw;
+    z-index: 2;
+}
+
+.obstacle {
+    background-color: brown;
+    position: absolute;
+  
+}
+.platform {
+    background-color: yellow;
+    position: absolute;
 }
