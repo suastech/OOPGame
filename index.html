@@ -7,9 +7,48 @@
     <link rel="stylesheet" href="./styles.css">
 </head>
 <body>
-    <div id = "board">    
-      <img src="./player.jpg" id="player"></img>
+
+    <div id="information">
+      <div id="hearts-container"> <img class="heart" id="heart1" src="./images/heart.png" alt="heart1"><img class="heart" id="heart2" src="./images/heart.png" alt="heart2"><img class="heart" id="heart3" src="./images/heart.png" alt="heart3"> </div>
+      <img id="weapon-using"></img>
+      <div id="count-coins"> </div>
+      <div id= "count-time"> </div>
+      <img id="sound-icon" src="./images/soundoff.png" alt="sound">
+      <div id="level"> Level 1</div>
     </div>
+
+    <div id = "board">
+      <img src="./images/mario2.png" id="player"></img>
+      <div class="cannonLine" id="cannonLeft"> </div>
+      <div class="cannonLine" id="cannonRight"> </div>
+    </div>
+    
+    <audio id="misil">
+      <source src="./sounds/misil.mp3" type="audio/mpeg">
+    </audio>
+    <audio id="hadouken">
+      <source src="./sounds/hadouken.mp3" type="audio/mpeg">
+    </audio>
+    <audio id="jump-sound">
+      <source src="./sounds/jump.mp3" type="audio/mpeg">
+    </audio>
+    <audio id="homer">
+      <source src="./sounds/homer.mp3" type="audio/mpeg">
+    </audio>
+    <audio id="coin-sound">
+      <source src="./sounds/coin.mp3" type="audio/mpeg">
+    </audio>
+    <audio id="cannon-sound">
+      <source src="./sounds/cannon.wav" type="audio/mpeg">
+    </audio>
+    <audio id="dies">
+      <source src="./sounds/dies.mp3" type="audio/mpeg">
+    </audio>
+    <audio id="powerup">
+      <source src="./sounds/powerup.wav" type="audio/mpeg">
+    </audio>
+
+
 
     <script src="./main.js"></script>
 </body>

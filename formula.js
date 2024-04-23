@@ -1,3 +1,9 @@
+player.x >= portal.x &&
+    player.y >= portal.y &&
+    player.x + player.width <= portal.x + portal.width &&
+    player.y + player.height <= portal.y + portal.height
+ 
+ 
  /*
          if (
             player.x            < obstacle.x + obstacle.w && //como decir: la coordenada izquierda del objeto debe ser menor a la coordenada derecha del obstáculo

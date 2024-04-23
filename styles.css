@@ -1,21 +1,24 @@
-html {
-    font-size: 16px
-  }
-
 body {
     background-color: white;
     margin: 0;
     padding: 0;
     display: flex;
+    flex-direction: column;
     height: 100vh;
+    position: relative;
+    
 }
 
 #board {
     width: 1200px;
     height: 500px;
-    background-color: darkcyan;
+    background-image: url(./images/clouds3.jpg);
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center; 
     position: relative;
     margin: auto auto;
+    overflow-y: hidden;
 }
 
 #player {
@@ -23,12 +26,91 @@ body {
     z-index: 2;
 }
 
-.obstacle {
-    background-color: brown;
-    position: absolute;
-  
+.obstacle, .bullet, .platform,  #coin {
+    position: absolute;  
 }
-.platform {
-    background-color: yellow;
+.cannon {
     position: absolute;
+}
+
+.cannon-ball {
+    position: absolute;
+    
+
+}
+
+.explosion {
+    position: absolute;
+}
+
+.cannonLine {
+    position: absolute;
+    height: 100%;
+    background-color: rgb(0, 0, 0);
+}
+#cannonRight {
+    right: 0;
+}
+
+#exit-portal {
+    border: 2px solid blue;
+}
+
+#information {
+    position: absolute;
+    left: 83px;
+    width: 1140px;
+    height: 50px;
+    background-color: black;
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    color: white;
+    padding: 0 30px;
+    font-size: 20px;
+}
+
+#count-coins {
+    color: yellow;
+}
+
+
+.heart {
+    width: 25px;
+    height: auto;
+}
+
+@keyframes parpadeo {
+  0% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+.player-flash {
+  animation: parpadeo .3s infinite;
+  opacity: 0.6
+}
+.item {
+    /* animation: parpadeo .5s infinite; */
+    z-index: 0;
+}
+
+#weapon-using {
+    height: 30px;
+    width: 20px;
+}
+
+#sound-icon {
+    width:25px;
+    border-radius: 10px;
+    cursor: pointer;
+    padding: 3px;    
+    background-color: white;
 }
