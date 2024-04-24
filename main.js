@@ -38,7 +38,7 @@ function startGame(level, sound) {
   const ratioPlayerToObstacleSpeed = 2;
   const ratioPlayerToBulletSpeed = 2;
   const referenceSpeed = 10;
-  const coinsNeeded = 1;
+  const coinsNeeded = 5;
   const numberOfPlatforms = level;
   const pauseBetweenShots = 1;
   let coinsCollected = 0;
@@ -533,12 +533,8 @@ function startGame(level, sound) {
     exitPortal.style.opacity = "0.7";
     exitPortal.style.width = width + "px";
     exitPortal.style.height = height + "px";
-    exitPortal.style.left =
-      Math.floor(
-        cannonWidth + 50 + Math.random() * (boardWidth - cannonWidth * 2 - 100)
-      ) + "px";
-    exitPortal.style.bottom =
-      Math.floor(30 + Math.random() * (500 - 80)) + "px";
+    exitPortal.style.left = Math.floor(cannonWidth + 50 + Math.random() * (boardWidth - cannonWidth * 2 - 100) ) + "px";
+    exitPortal.style.bottom = Math.floor(50 + Math.random() * (400 - height)) + "px";
     board.appendChild(exitPortal);
   }
   createExit();
@@ -584,16 +580,13 @@ function startGame(level, sound) {
     const newCannonBall = new CannonBall(posX, posY, direction);
     const newObstacle = new Obstacle();
     obstaclesArray.push(newObstacle, newCannonBall);
-    if (sound) {
-      document.getElementById("cannon-sound").play();
-    }
+    document.getElementById("cannon-sound").play();
+    
   }, 2000);
 
   function createBullet() {
     const newBullet = new Bullet();
-    if (sound) {
-      document.getElementById(newBullet.type).play();
-    }
+    document.getElementById(newBullet.type).play();
     bulletsArray.push(newBullet);
   }
 
@@ -619,33 +612,6 @@ function startGame(level, sound) {
       }
     }
     return "";
-  }
-
-  function evaluateIfFoundExitPortal() {
-    // Calcula el centro del jugador (x, y)
-    let playerCenterX = player.x + player.width / 2;
-    let playerCenterY = player.y + player.height / 2;
-
-    // Calcula el centro del portal (x, y)
-    let portalCenterX = portal.x;
-    let portalCenterY = portal.y;
-
-    // Calcula la distancia entre el centro del jugador y el centro del portal
-    let distanceX = Math.abs(playerCenterX - portalCenterX);
-    let distanceY = Math.abs(playerCenterY - portalCenterY);
-
-    // Si la distancia en el eje X es mayor que la mitad del ancho del jugador más el radio del portal,
-    // o si la distancia en el eje Y es mayor que la mitad de la altura del jugador más el radio del portal,
-    // no hay colisión
-    if (
-      distanceX > player.width / 2 + portal.size / 2 ||
-      distanceY > player.height / 2 + portal.size / 2
-    ) {
-      return false;
-    }
-
-    // Si no se cumple ninguna de las condiciones anteriores, hay una colisión
-    return true;
   }
 
   function checkColissions(element1, element2) {
@@ -693,9 +659,7 @@ function startGame(level, sound) {
     if (hearts === 0) {
       gameOver();
     } else {
-      if (sound) {
-        document.getElementById("homer").play();
-      }
+      document.getElementById("homer").play();
       document.getElementById(`heart${hearts}`).style.opacity = "0.5";
       activateInvulnerability();
       hearts--;
@@ -719,27 +683,25 @@ function startGame(level, sound) {
     clearInterval(timeInterval);
 
     if (win) {
-      if (sound) {
-        document.getElementById("cleared").play();
-      }
+      document.getElementById("cleared").play();
+
       if (level < 5) {
         level++;
         setTimeout(() => {
           document.getElementById("board").innerHTML = "";
           previous(level, sound);
-        }, 2000);
+        }, 4000);
       } else {
         window.location.href = "./gameOver.html";
       }
     } else {
       player.playerElm.src = "./images/mario3.png";
-      if (sound) {
-        document.getElementById("dies").play();
-      }
+      document.getElementById("dies").play();
+  
       setTimeout(() => {
         document.getElementById("board").innerHTML = "";
         previous(level, sound);
-      }, 2000);
+      }, 4000);
     }
   }
 
@@ -752,6 +714,20 @@ function startGame(level, sound) {
         "weapon-using"
       ).src = `./images/${bulletType}.png`;
     }, 20000);
+  }
+
+  function handleSound() {
+    sound = !sound;
+    document.getElementById("sound-icon").src = sound ? "./images/sound.png" : "./images/soundoff.png";
+    const soundElements = document.querySelectorAll(".sound-class");
+    soundElements.forEach(function(element) {
+      if (sound) {
+          element.muted = false;
+      } else {
+          element.muted = true;
+      }
+    });
+
   }
 
   //Count Time
@@ -791,20 +767,14 @@ function startGame(level, sound) {
         if (item.type === "heart" && hearts < 3) {
           hearts++;
           for (let i = 0; i < hearts; i++) {
-            if (sound) {
-              document.getElementById("powerup").play();
-            }
+            document.getElementById("powerup").play();
             document.getElementById(`heart${i + 1}`).style.opacity = "1";
           }
         } else if (item.type === "hadouken") {
-          if (sound) {
-            document.getElementById("powerup").play();
-          }
+          document.getElementById("powerup").play();
           hadoukenOn();
         } else if (item.type === "clock") {
-          if (sound) {
-            document.getElementById("powerup").play();
-          }
+          document.getElementById("powerup").play();
           time += 20;
         }
         let index = itemsArray.findIndex(
@@ -895,10 +865,7 @@ function startGame(level, sound) {
 
     if (coinsCollected < coinsNeeded && checkColissions(player, coinObject)) {
       coinsCollected++;
-      if (sound) {
-        document.getElementById("coin-sound").play();
-      }
-
+      document.getElementById("coin-sound").play();
       document.getElementById(
         "count-coins"
       ).textContent = `Coins: ${coinsCollected} / ${coinsNeeded}`;
@@ -951,9 +918,7 @@ function startGame(level, sound) {
       return
     }
     if (e.code === "Space") {
-      if (sound) {
-        document.getElementById("jump-sound").play();
-      }
+      document.getElementById("jump-sound").play();
       player.jump(pressedKeys);
     }
     if (e.code === "ArrowDown") {
@@ -1007,9 +972,7 @@ function startGame(level, sound) {
     }
   }
 
-  let soundLogic = document.getElementById("sound-icon");
-  soundLogic.addEventListener("click", () => {
-    sound = !sound;
-    soundLogic.src = sound ? "./images/sound.png" : "./images/soundoff.png";
+  document.getElementById("sound-icon").addEventListener("click", () => {
+    handleSound()
   });
 }
