@@ -1,14 +1,17 @@
-let str = "abpsdxzzf"; 
+//Inicio
+    //Presentación
 
-function isIsogram(str) {
-    str = str.toLowerCase();
-    let charMap = {};
-    for (let char of str) {
-        if (charMap[char]) return false;
-        charMap[char] = true;
-    }
+//Juego
+  //Se puede cambiar el nivel
     
-    return true;
-}
+    //Pierdes =>    se reinicia en mismo nivel;
+    //Lo pasas =>   se reinicia sumando nivel;
 
-console.log(isIsogram(str))
+    //Pantalla final 
+
+
+
+
+
+
+

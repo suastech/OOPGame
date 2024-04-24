@@ -8,20 +8,27 @@
 </head>
 <body>
 
+  <div id="intro">
+    <h1>Get ready!</h1>
+    <h2 id="pre-level"></h2>
+    <h3 id="countdown"></h3>
+  </div>
+
+  <div id="game" style="display: none">
+    
     <div id="information">
       <div id="hearts-container"> <img class="heart" id="heart1" src="./images/heart.png" alt="heart1"><img class="heart" id="heart2" src="./images/heart.png" alt="heart2"><img class="heart" id="heart3" src="./images/heart.png" alt="heart3"> </div>
       <img id="weapon-using"></img>
       <div id="count-coins"> </div>
       <div id= "count-time"> </div>
-      <img id="sound-icon" src="./images/soundoff.png" alt="sound">
+      <img id="sound-icon" alt="sound">
       <div id="level"> Level 1</div>
     </div>
-
     <div id = "board">
-      <img src="./images/mario2.png" id="player"></img>
-      <div class="cannonLine" id="cannonLeft"> </div>
-      <div class="cannonLine" id="cannonRight"> </div>
+      
     </div>
+
+  </div>
     
     <audio id="misil">
       <source src="./sounds/misil.mp3" type="audio/mpeg">
@@ -46,6 +53,9 @@
     </audio>
     <audio id="powerup">
       <source src="./sounds/powerup.wav" type="audio/mpeg">
+    </audio>
+    <audio id="cleared">
+      <source src="./sounds/cleared.wav" type="audio/mpeg">
     </audio>
 
 
