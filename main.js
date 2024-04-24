@@ -943,6 +943,7 @@ function startGame(level, sound) {
   document.addEventListener("keydown", (e) => {
     if (e.code === "KeyZ") {
       pause = !pause
+      document.getElementById("pause-sound").play()
       document.querySelector(".pause").classList.toggle("pause-hide")
       return
     }
