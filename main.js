@@ -4,7 +4,6 @@ let sound = false;
 previous(level, sound);
 
 function previous(level, sound) {
-  document.getElementById("board").innerHTML = "";
   document.getElementById("game").style.display = "none";
   document.getElementById("intro").style.display = "block";
   document.getElementById("pre-level").innerText = `Level ${level}`;
@@ -13,7 +12,7 @@ function previous(level, sound) {
     document.getElementById(`heart${i}`).style.opacity = "1";
   }
 
-  let counter = 3;
+  let counter = 4;
   let idInterval = setInterval(() => {
     document.getElementById("countdown").innerText = counter;
     counter--;
@@ -24,13 +23,14 @@ function previous(level, sound) {
     document.getElementById("intro").style.display = "none";
     document.getElementById("game").style.display = "flex";
     startGame(level, sound);
-  }, 3000);
+  }, 5000);
 }
 
 function startGame(level, sound) {
   const boardWidth = 1200;
   const boardHeight = 500;
   const cannonWidth = 50;
+  let pause = false;
   let time = 90;
   let hearts = 3;
   let bulletType = "misil";
@@ -44,13 +44,9 @@ function startGame(level, sound) {
   let coinsCollected = 0;
   const obstacleImages = ["cow", "bomb", "bomb2", "yunque", "piano", "jabba"];
 
-  document.getElementById("sound-icon").src = sound
-    ? "./images/sound.png"
-    : "./images/soundoff.png";
+  document.getElementById("sound-icon").src = sound? "./images/sound.png": "./images/soundoff.png";
   document.getElementById("weapon-using").src = `./images/${bulletType}.png`;
-  document.getElementById(
-    "count-coins"
-  ).textContent = `Coins: ${coinsCollected} / ${coinsNeeded}`;
+  document.getElementById("count-coins").textContent = `Coins: ${coinsCollected} / ${coinsNeeded}`;
   document.getElementById("count-time").textContent = `Time ${time}`;
   document.getElementById("level").textContent = `Level ${level}`;
 
@@ -123,6 +119,9 @@ function startGame(level, sound) {
       let counter = 0;
       let goingDown = false;
       let jumpInterval = setInterval(() => {
+        if (pause) {
+          return;
+        }
         if (counter < 10 && goingDown === false) {
           this.y += jumpAltitude;
           //Check left and right
@@ -445,6 +444,7 @@ function startGame(level, sound) {
     static options = ["hadouken", "heart", "clock"];
     static idCounter = 0;
     constructor() {
+      this.life = 0;
       this.height = 50;
       this.width = 50;
       this.x = Math.floor(
@@ -490,19 +490,24 @@ function startGame(level, sound) {
 
   //Create Items
   let itemsArray = [];
-  function newItem() {
+  const itemInterval = setInterval(() => {
+    if (pause) {
+      return;
+    }
+
     let newItem = new Item();
     itemsArray.push(newItem);
-    setTimeout(() => {
-      let index = itemsArray.findIndex((item) => item.id === newItem.id);
-      if (index !== -1) {
-        const elementToRemove = document.getElementById(newItem.id);
+
+    for (let index = 0; index < itemsArray.length; index++) {
+      itemsArray[index].life++;
+      if (itemsArray[index].life === 5) {
+        const elementToRemove = document.getElementById(itemsArray[index].id);
         elementToRemove.parentNode.removeChild(elementToRemove);
         itemsArray.splice(index, 1);
       }
-    }, 10000);
-  }
-  const itemInterval = setInterval(newItem, 10000);
+    }
+
+  }, 10000);
 
   //Create Platforms
   function platformFactory(number) {
@@ -568,6 +573,10 @@ function startGame(level, sound) {
 
   //Create obstacles
   const obstInterval = setInterval(() => {
+    if (pause) {
+      return;
+    }
+
     const selectCannon = Math.random() < 0.5 ? true : false;
     const posX = selectCannon ? cannonLeft.x : cannonRight.x;
     const posY = selectCannon ? cannonLeft.y : cannonRight.y;
@@ -681,7 +690,6 @@ function startGame(level, sound) {
 
   function playerHit(positionX, positionY) {
     makeExplosions([[positionX, positionY]]);
-    console.log(hearts);
     if (hearts === 0) {
       gameOver();
     } else {
@@ -717,6 +725,7 @@ function startGame(level, sound) {
       if (level < 5) {
         level++;
         setTimeout(() => {
+          document.getElementById("board").innerHTML = "";
           previous(level, sound);
         }, 2000);
       } else {
@@ -728,6 +737,7 @@ function startGame(level, sound) {
         document.getElementById("dies").play();
       }
       setTimeout(() => {
+        document.getElementById("board").innerHTML = "";
         previous(level, sound);
       }, 2000);
     }
@@ -746,6 +756,9 @@ function startGame(level, sound) {
 
   //Count Time
   const timeInterval = setInterval(() => {
+    if (pause) {
+      return;
+    }
     time--;
     document.getElementById("count-time").textContent = `Time: ${time}`;
     if (time === 0) {
@@ -754,7 +767,11 @@ function startGame(level, sound) {
   }, 1000);
 
   const generalMovementControl = setInterval(() => {
-    //Revisión caída:
+    if (pause) {
+      return;
+    }
+
+    //Check fall:
     if (player.y + player.height <= 0) {
       gameOver();
     }
@@ -844,12 +861,16 @@ function startGame(level, sound) {
 
       obstaclesToDestroy.forEach((element) => {
         const elementToRemove = document.getElementById(element);
+        if (elementToRemove) {
         elementToRemove.parentNode.removeChild(elementToRemove);
+        }
       });
 
       bulletsToDestroy.forEach((element) => {
         const elementToRemove = document.getElementById(element);
+        if (elementToRemove) {
         elementToRemove.parentNode.removeChild(elementToRemove);
+        }
       });
 
       obstaclesArray = obstaclesArray.filter(
@@ -920,6 +941,14 @@ function startGame(level, sound) {
 
   // detect keydown events / when a key is pressed
   document.addEventListener("keydown", (e) => {
+    if (e.code === "KeyZ") {
+      pause = !pause
+      document.querySelector(".pause").classList.toggle("pause-hide")
+      return
+    }
+    if (pause) {
+      return
+    }
     if (e.code === "Space") {
       if (sound) {
         document.getElementById("jump-sound").play();
@@ -937,20 +966,21 @@ function startGame(level, sound) {
       player.lookingUp = true;
       playerHtml.src = "./images/marioLookingUp.png";
     }
-
     if (e.code === "KeyX") {
       if (player.allowedToShot) {
         createBullet();
         limitShots();
       }
     }
-
     pressedKeys[e.code] = true;
     updatePlayerPosition();
   });
 
   // detect keyup events / when a key is released
   document.addEventListener("keyup", (e) => {
+    if (pause) {
+      return
+    }
     if (e.code === "ArrowDown") {
       player.height = player.height * 2;
       playerHtml.style.height = player.height + "px";

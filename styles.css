@@ -15,9 +15,10 @@ body {
     margin: auto;
     top: 100px;
 }
-h1, h2, h3 {
+h1, h2, h3, h4 {
     text-align: center;
 }
+
 
 #game {
     height: 100%;
@@ -51,6 +52,26 @@ h1, h2, h3 {
     background-position: center; 
     position: relative;
     overflow-y: hidden;
+}
+
+.pause {
+    border: 3px double rgb(212, 209, 209);
+    width: 500px;
+    padding: 100px 0;
+    background-color: rgb(5, 5, 174);
+    border-radius: 50px;
+    text-align: center;
+    z-index: 4;
+    position: absolute;
+    font-size: 30px;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    color: white;
+    display: block;
+}
+.pause-hide {
+    display: none;
 }
 
 #player {
