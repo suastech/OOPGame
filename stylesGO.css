@@ -5,6 +5,9 @@ body {
     align-content: center;
     justify-content: center;
 }
+#links {
+    margin: auto auto;
+}
 
 h1, h2, h3, a {
     text-align: center;
@@ -17,5 +20,5 @@ h3 {
 img {
     height: auto;
     width: 200px;
-    margin: auto auto;
+    margin: 10px auto;
 }

@@ -32,14 +32,14 @@ function startGame(level, sound) {
   const boardHeight = 500;
   const cannonWidth = 50;
   let pause = false;
-  let time = 90;
+  let time = 60;
   let hearts = 3;
   let bulletType = "misil";
   const ratioPlayerToPlatformSpeed = 3;
   const ratioPlayerToObstacleSpeed = 2;
   const ratioPlayerToBulletSpeed = 2;
   const referenceSpeed = 10;
-  const coinsNeeded = 1;
+  const coinsNeeded = 2;
   const numberOfPlatforms = level;
   const pauseBetweenShots = 1;
   let coinsCollected = 0;
@@ -50,6 +50,13 @@ function startGame(level, sound) {
   document.getElementById("count-coins").textContent = `Coins: ${coinsCollected} / ${coinsNeeded}`;
   document.getElementById("count-time").textContent = `Time ${time}`;
   document.getElementById("level").textContent = `Level ${level}`;
+
+  //Create pause 
+  let pauseBanner = document.createElement("div");
+  pauseBanner.textContent = "Press Z to continue";
+  pauseBanner.classList.add("pause", "pause-hide");
+  document.getElementById("board").appendChild(pauseBanner);
+
 
   const cannonLines = document.querySelectorAll(".cannonLine");
   cannonLines.forEach((cannon) => {
@@ -291,6 +298,8 @@ function startGame(level, sound) {
       this.obstacleElm.style.bottom = this.y + "px";
     }
   }
+
+
 
   class Bullet {
     static idCounter = 0; // static counter to generate unique id's
@@ -680,11 +689,15 @@ function startGame(level, sound) {
     clearInterval(itemInterval);
     clearInterval(generalMovementControl);
     clearInterval(timeInterval);
+    document.removeEventListener("keydown", handleKeyDown);
+    document.removeEventListener("keyup", handleKeyUp);
 
     if (win) {
       document.getElementById("cleared").play();
 
       if (level < 5) {
+
+
         level++;
         setTimeout(() => {
           document.getElementById("board").innerHTML = "";
@@ -907,18 +920,16 @@ function startGame(level, sound) {
     }
   }, 50);
 
-  const pressedKeys = {};
 
-  // detect keydown events / when a key is pressed
-  document.addEventListener("keydown", (e) => {
+  function handleKeyDown(e) {
     if (e.code === "KeyZ") {
-      pause = !pause
-      document.getElementById("pause-sound").play()
-      document.querySelector(".pause").classList.toggle("pause-hide")
-      return
+      pause = !pause;
+      document.getElementById("pause-sound").play();
+      document.querySelector(".pause").classList.toggle("pause-hide");
+      return;
     }
     if (pause) {
-      return
+      return;
     }
     if (e.code === "Space") {
       player.jump(pressedKeys);
@@ -942,12 +953,11 @@ function startGame(level, sound) {
     }
     pressedKeys[e.code] = true;
     updatePlayerPosition();
-  });
+  }
 
-  // detect keyup events / when a key is released
-  document.addEventListener("keyup", (e) => {
+  function handleKeyUp(e) {
     if (pause) {
-      return
+      return;
     }
     if (e.code === "ArrowDown") {
       player.height = player.height * 2;
@@ -959,10 +969,17 @@ function startGame(level, sound) {
       player.lookingUp = false;
       playerHtml.src = "./images/mario2.png";
     }
-
     pressedKeys[e.code] = false;
     updatePlayerPosition();
-  });
+  }
+
+  const pressedKeys = {};
+
+  // detect keydown events / when a key is pressed
+  document.addEventListener("keydown", handleKeyDown);
+
+  // detect keyup events / when a key is released
+  document.addEventListener("keyup", handleKeyUp);
 
   function updatePlayerPosition() {
     if (pressedKeys.ArrowLeft === true) {
