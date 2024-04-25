@@ -4,6 +4,7 @@ let sound = false;
 previous(level, sound);
 
 function previous(level, sound) {
+  
   document.getElementById("game").style.display = "none";
   document.getElementById("intro").style.display = "block";
   document.getElementById("pre-level").innerText = `Level ${level}`;
@@ -22,7 +23,7 @@ function previous(level, sound) {
     clearInterval(idInterval);
     document.getElementById("intro").style.display = "none";
     document.getElementById("game").style.display = "flex";
-    startGame(level, sound);
+    return startGame(level, sound);
   }, 5000);
 }
 
@@ -643,7 +644,7 @@ function startGame(level, sound) {
       parent.appendChild(newExp);
     });
 
-    // Esperar 0.3 segundos antes de eliminar los elementos
+    // Wait before eliminating all explosions
     setTimeout(() => {
       const explosions = document.querySelectorAll(".explosion");
       explosions.forEach((explosion) => {
@@ -687,10 +688,13 @@ function startGame(level, sound) {
         level++;
         setTimeout(() => {
           document.getElementById("board").innerHTML = "";
-          previous(level, sound);
+          document.getElementById("countdown").innerText = 5;
+          return previous(level, sound);
         }, 4000);
       } else {
-        window.location.href = "./gameOver.html";
+        setTimeout ( () => {
+          return window.location.href = "./gameOver.html";
+        }, 3000)
       }
     } else {
       player.playerElm.src = "./images/mario3.png";
@@ -698,7 +702,8 @@ function startGame(level, sound) {
   
       setTimeout(() => {
         document.getElementById("board").innerHTML = "";
-        previous(level, sound);
+        document.getElementById("countdown").innerText = 5;
+        return previous(level, sound);
       }, 4000);
     }
   }
@@ -900,7 +905,7 @@ function startGame(level, sound) {
         }
       });
     }
-  }, 50);
+  }, 33);
 
   const pressedKeys = {};
 
