@@ -1,0 +1,15 @@
+body {
+    display: flex;
+    flex-direction: column;
+    align-content: center;
+}
+
+h1, h2, h3, a {
+    text-align: center;
+    margin: 20px 50px;
+}
+h3 {
+    font-style: italic;
+    font-size: 35px;
+
+}
