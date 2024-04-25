@@ -38,7 +38,7 @@ function startGame(level, sound) {
   const ratioPlayerToObstacleSpeed = 2;
   const ratioPlayerToBulletSpeed = 2;
   const referenceSpeed = 10;
-  const coinsNeeded = 5;
+  const coinsNeeded = 1;
   const numberOfPlatforms = level;
   const pauseBetweenShots = 1;
   let coinsCollected = 0;

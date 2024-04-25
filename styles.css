@@ -4,21 +4,26 @@ body {
 
 #intro {
     position: relative;
-    width: 500px;
-    height: 300px;
+    border: 3px solid black;
+    width: 700px;
+    height: 500px;
+    padding: 20px 0;
     display: flex;
-    align-content: center;
-    justify-content: center;
+    flex-direction: column;
+    align-items: center;
     background-color: rgb(8, 8, 96);
     color: white;
     border-radius: 50px;
     margin: auto;
-    top: 100px;
+    top: 10px;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
 }
 h1, h2, h3, h4 {
     text-align: center;
 }
-
+h3 {
+    font-size: 40px;
+}
 
 #game {
     height: 100%;
