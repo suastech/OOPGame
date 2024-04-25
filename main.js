@@ -905,7 +905,7 @@ function startGame(level, sound) {
         }
       });
     }
-  }, 33);
+  }, 50);
 
   const pressedKeys = {};
 
