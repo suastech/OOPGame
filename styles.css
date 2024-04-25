@@ -25,6 +25,10 @@ h3 {
     font-size: 40px;
 }
 
+.player-blue {
+    filter: hue-rotate(180deg);
+}
+
 #game {
     height: 100%;
     background-color: white;

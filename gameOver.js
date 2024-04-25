@@ -11,6 +11,5 @@ fetch('https://api.chucknorris.io/jokes/random')
     document.getElementById("joke").textContent = data.value
   })
   .catch(error => {
-    // Manejar errores de la solicitud
-    console.error('Error al obtener la broma de Chuck Norris:', error);
+    console.error('Error al obtener el Chuck Norris Fact:', error);
   });

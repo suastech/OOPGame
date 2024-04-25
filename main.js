@@ -705,12 +705,12 @@ function startGame(level, sound) {
 
   function hadoukenOn() {
     bulletType = "hadouken";
+    document.getElementById("player").classList.add("player-blue");
     document.getElementById("weapon-using").src = `./images/${bulletType}.png`;
     setTimeout(() => {
       bulletType = "misil";
-      document.getElementById(
-        "weapon-using"
-      ).src = `./images/${bulletType}.png`;
+      document.getElementById("player").classList.remove("player-blue");
+      document.getElementById("weapon-using").src = `./images/${bulletType}.png`;
     }, 20000);
   }
 

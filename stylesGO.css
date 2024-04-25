@@ -1,7 +1,9 @@
 body {
+    position: relative;
     display: flex;
     flex-direction: column;
     align-content: center;
+    justify-content: center;
 }
 
 h1, h2, h3, a {
@@ -11,5 +13,9 @@ h1, h2, h3, a {
 h3 {
     font-style: italic;
     font-size: 35px;
-
+}
+img {
+    height: auto;
+    width: 200px;
+    margin: auto auto;
 }
