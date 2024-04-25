@@ -580,13 +580,11 @@ function startGame(level, sound) {
     const newCannonBall = new CannonBall(posX, posY, direction);
     const newObstacle = new Obstacle();
     obstaclesArray.push(newObstacle, newCannonBall);
-    document.getElementById("cannon-sound").play();
     
   }, 2000);
 
   function createBullet() {
     const newBullet = new Bullet();
-    document.getElementById(newBullet.type).play();
     bulletsArray.push(newBullet);
   }
 
@@ -771,7 +769,7 @@ function startGame(level, sound) {
             document.getElementById(`heart${i + 1}`).style.opacity = "1";
           }
         } else if (item.type === "hadouken") {
-          document.getElementById("powerup").play();
+          document.getElementById("hadouken").play();
           hadoukenOn();
         } else if (item.type === "clock") {
           document.getElementById("powerup").play();
@@ -918,7 +916,6 @@ function startGame(level, sound) {
       return
     }
     if (e.code === "Space") {
-      document.getElementById("jump-sound").play();
       player.jump(pressedKeys);
     }
     if (e.code === "ArrowDown") {
