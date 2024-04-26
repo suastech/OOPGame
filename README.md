@@ -1,10 +1,12 @@
 This game is made only with HTML, CSS and Javascript, without auxiliary libraries.
 
+You can play de game here: https://suastech.github.io/OOPGame/
+
 Help Mario to pass the 5 levels of this challenge. In each one you must collect a certain number of coins to open the portal that will help you to escape before the time runs out.
 
 You can help yourself with the following items: 
 - Clock: add 20 seconds to the countdown. 
-- Heart: retrieves a heart. 
+- Heart: retrieves a heart.
 - Hadouken: for 20 seconds, you can use the mythical Hadouken attack.
 
 Keyboard commands: 
