@@ -39,7 +39,7 @@ function startGame(level, sound) {
   const ratioPlayerToObstacleSpeed = 2;
   const ratioPlayerToBulletSpeed = 2;
   const referenceSpeed = 10;
-  const coinsNeeded = 2;
+  const coinsNeeded = 4;
   const numberOfPlatforms = level;
   const pauseBetweenShots = 1;
   let coinsCollected = 0;
@@ -589,6 +589,8 @@ function startGame(level, sound) {
     const direction = selectCannon ? "right" : "left";
     const newCannonBall = new CannonBall(posX, posY, direction);
     const newObstacle = new Obstacle();
+    document.getElementById("cannon").play();
+
     obstaclesArray.push(newObstacle, newCannonBall);
     
   }, 2000);
@@ -596,6 +598,13 @@ function startGame(level, sound) {
   function createBullet() {
     const newBullet = new Bullet();
     bulletsArray.push(newBullet);
+    if (bulletType === "hadouken") {
+      document.getElementById("hadouken").play();
+     } else {
+      document.getElementById("rocket").play();
+    }
+ 
+
   }
 
   // Limit shots
