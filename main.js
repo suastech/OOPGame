@@ -37,7 +37,7 @@ function startGame(level, sound) {
   let bulletType = "misil";
   const ratioPlayerToPlatformSpeed = 3;
   const ratioPlayerToObstacleSpeed = 2;
-  const ratioPlayerToBulletSpeed = 2;
+  const ratioPlayerToBulletSpeed = .5;
   const referenceSpeed = 10;
   const coinsNeeded = 4;
   const numberOfPlatforms = level;
@@ -298,8 +298,6 @@ function startGame(level, sound) {
       this.obstacleElm.style.bottom = this.y + "px";
     }
   }
-
-
 
   class Bullet {
     static idCounter = 0; // static counter to generate unique id's
@@ -603,8 +601,6 @@ function startGame(level, sound) {
      } else {
       document.getElementById("rocket").play();
     }
- 
-
   }
 
   // Limit shots
@@ -835,7 +831,7 @@ function startGame(level, sound) {
 
       //Check each obstacle vs each Bullet:
       bulletsArray.forEach((elementBullet) => {
-        elementBullet.moveBullet();
+        //elementBullet.moveBullet();
         if (checkColissions(elementBullet, elementObstacle)) {
           placesOfExplosions.push([elementObstacle.x, elementObstacle.y]);
           bulletsToDestroy.push(elementBullet.id);
@@ -908,6 +904,11 @@ function startGame(level, sound) {
       }
     }
 
+    // Move Bullets 
+    bulletsArray.forEach( elementBullet => {
+      elementBullet.moveBullet();
+    })
+
     //Move platforms and Player
     const platformWithPlayer = evaluateIfPlayerIsOnPlatform(platformArray);
     if (platformWithPlayer === "") {
@@ -921,10 +922,11 @@ function startGame(level, sound) {
       }
     } else {
       platformArray.forEach((platform) => {
-        if (platform.id !== platformWithPlayer) platform.movePlatform(false);
+        platform.id !== platformWithPlayer ? platform.movePlatform(false) : platform.movePlatform(true);
+        /* if (platform.id !== platformWithPlayer) platform.movePlatform(false);
         else {
           platform.movePlatform(true);
-        }
+        } */
       });
     }
   }, 50);
